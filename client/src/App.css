@@ -1,0 +1,242 @@
+body {
+       margin: 0;
+       padding: 0;
+       width: 100%;
+       height: auto;
+}
+/* profile css */
+.profile-container {
+       width: 100%;
+       height: 80vh;
+       display: flex;
+       flex-direction: column;
+       position: relative;
+}
+.cover {
+       width: 100%;
+       height: 75%;
+       object-fit: cover;
+       transition: 0.2s ease;
+}
+.cover-for-other {
+       width: 100%;
+       height: 75%;
+       object-fit: cover;
+       transition: 0.2s ease;
+}
+.profilePic {
+       margin-left: auto;
+       margin-right: auto;
+       object-fit: contain;
+       background-color: #fff;
+       position: absolute;
+       top: 2%;
+       right: 2%;
+       width: 250px;
+       height: 250px;
+       border-radius: 50%;
+       border: 2px solid rgb(34, 199, 130);
+       margin-top: 1em;
+       transition: 0.2s ease;
+}
+.profilePic-for-other{
+       margin-left: auto;
+       margin-right: auto;
+       object-fit: contain;
+       background-color: #fff;
+       position: absolute;
+       top: 2%;
+       right: 2%;
+       width: 250px;
+       height: 250px;
+       border-radius: 50%;
+       border: 2px solid rgb(34, 199, 130);
+       margin-top: 1em;
+       transition: 0.2s ease;
+
+}
+.profilePic:hover {
+       opacity: 0.75;
+       cursor: pointer;
+       transition: 0.2s ease;
+}
+.cover:hover {
+       opacity: 0.75;
+       transition: 0.2s ease;
+       cursor: pointer;
+}
+.coverImg-input {
+       position: absolute;
+       font-size: 1.5em;
+       top: 2%;
+       left: 2%;
+       display: none;
+}
+.uploadCover-btn {
+       position: absolute;
+       top: 10%;
+       font-size: 1.5em;
+       background-color: rgb(34, 199, 130);
+       border: none;
+       left: 2%;
+       color: #111;
+       padding: 0.45em;
+       border-radius: 25px;
+       display: none;
+}
+.profileImg-input {
+       position: absolute;
+       right: 2%;
+       top: 40%;
+       display: none;
+}
+.uploadProfile-btn {
+       position: absolute;
+       right: 2%;
+       top: 50%;
+       font-size: 1.5em;
+       background-color: rgb(34, 199, 130);
+       border: none; 
+       color: #111;
+       padding: 0.45em;
+       border-radius: 25px;
+       display: none;
+}
+.dash-profile-container {
+       width: 45%;
+       height: fit-content;
+}
+.dashboard-container {
+       width: 100%;
+       height: auto;
+       display: flex;
+       justify-content: space-between;
+}
+.profile-pic {
+       width: 75%;
+       height: 100%;
+       background-color: #fff;
+}
+.dash-link {
+       display: flex;
+       width: 50%;
+       justify-content: flex-start;
+       align-items: center;
+       height: 15%;
+       text-decoration: none;
+       background-color: rgb(34, 199, 130);
+       border-bottom-right-radius: 90px;
+}
+.dashProfile-pic {
+       width: 100px !important;
+       height: 100px !important;
+       object-fit: contain;
+       border-radius: 50%;
+       background-color: #fff;
+       border: 2px solid rgb(34, 199, 130);
+}
+.dash-user {
+       color: #fff;
+       font-size: 2em;
+}
+.dash-posts-container {
+       width: 100%;
+       height: auto;
+       text-align: center;
+}
+::-webkit-scrollbar {
+       background-color: rgb(34, 199, 130);
+       width: 10px;
+       height: 300px !important;
+       border-radius: 50px;
+}
+::-webkit-scrollbar-thumb {
+       background-color: rgb(117, 226, 181);
+       border-radius: 50px;
+}
+.post-input {
+       width: 50%;
+       height: 2em;
+       font-size: 2em;
+}
+.post-btn {
+       background-color: rgb(34, 199, 130);
+       border: none;
+       color: #fff;
+       font-size: 2em;
+       margin-left: .25em;
+       padding: .25em;
+       border-radius: 35px;
+}
+.post-list-container {
+       display: flex;
+       flex-direction: column-reverse;
+       width: 90%;
+       margin-left: auto;
+       margin-right: auto;
+       height: 80vh;
+       overflow-y: scroll;
+}
+.dash-props-container {
+       width: 90%;
+       margin-right: auto;
+       height: auto;
+       display: flex;
+       justify-content: flex-start;
+}
+.dash-props-container h1 {
+       width: 100%;
+       color: rgb(34, 199, 130);
+       font-size: 2em;
+       margin-left: 1em;
+}
+.dash-props-container h1:hover {
+       cursor: pointer;
+}
+.dash-props-container p {
+       width: 100%;
+       color: #7a7a7a;
+       font-size: 1.75em;
+       margin-left: 2em;
+}
+.login-container {
+       width: 100%;
+       height: 100vh;
+       display: flex;
+       justify-content: center;
+       align-items: center;
+}
+.login {
+       width: 50%;
+       display: flex;
+       flex-direction: column;
+       padding: 4em;
+       background-color: rgb(34, 199, 130);
+}
+.login input {
+       width: 50%;
+       font-size: 2em;
+       color: #7a7a7a;
+}
+.login label {
+       font-size: 2em;
+       color: #fff;
+}
+.login button {
+       width: 50%;
+       background-color: rgb(117, 226, 181);
+       border: none;
+       font-size: 2em;
+       color: #fff;
+       margin-top: .5em;
+       padding: .25em;
+       border-radius: 35px;
+}
+.login h1 {
+       color: #fff;
+       font-weight: 500;
+}
+.signup-link {
+       color: #fff;
+
+}
