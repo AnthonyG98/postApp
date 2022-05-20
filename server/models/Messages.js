@@ -1,10 +1,10 @@
 module.exports = (sequelize, DataTypes) => {
-  const Users = sequelize.define("Users", {
-    username: {
+  const Messages = sequelize.define("Messages", {
+    message: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    password: {
+    chatId: {
       type: DataTypes.STRING,
       allowNull: false,
     },
@@ -12,13 +12,6 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: true,
     },
-    profile_cover: {
-      type: DataTypes.STRING,
-      allowNull: true,
-    },
   });
-  Users.associate = (models) => {
-    Users.hasMany(models.Messages);
-  };
-  return Users;
+  return Messages;
 };
