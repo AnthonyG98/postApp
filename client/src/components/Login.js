@@ -21,7 +21,9 @@ function Login() {
   return (
     <div className="login-container">
       <div className="login">
-        <h1 className="login-head">Welcome!</h1>
+        <h1 className="login-head">
+          W<p className="welcome">elcome!</p>
+        </h1>
         <input
           type="text"
           onChange={(e) => {
