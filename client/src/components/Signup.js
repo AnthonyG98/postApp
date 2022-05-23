@@ -43,19 +43,22 @@ function Signup() {
   return (
     <div className="login-container">
       <div className="login">
-        <label>Username:</label>
+        <h1 className="login-head">
+          W<p className="welcome">elcome!</p>
+        </h1>
         <input
           type="text"
           onChange={(e) => {
             setUsername(e.target.value);
           }}
+          placeholder={"Username"}
         />
-        <label>Password:</label>
         <input
           type="password"
           onChange={(e) => {
             setPassword(e.target.value);
           }}
+          placeholder={"Password"}
         />
         <button
           onClick={() => {
