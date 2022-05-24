@@ -15,7 +15,11 @@ function Login() {
       .post("http://localhost:3001/users/login", loginData)
       .then((response) => {
         localStorage.setItem("username", username);
-        history("/messages");
+        if (response.data.error) {
+          alert(response.data.error);
+        } else {
+          history("/messages");
+        }
       });
   };
   return (

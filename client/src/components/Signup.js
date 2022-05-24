@@ -12,7 +12,7 @@ function Signup() {
     const signUpData = {
       username: username,
       password: password,
-      profile_picture: "default_bgtog9",
+      profile_picture: "default_nlfrji",
       profile_cover: "sample",
     };
     axios.post("http://localhost:3001/users", signUpData).then((response) => {

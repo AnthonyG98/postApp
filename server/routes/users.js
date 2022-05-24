@@ -47,7 +47,7 @@ router.post("/login", async (req, res) => {
 });
 router.get("/:user", async (req, res) => {
   const user = req.params.user;
-  const searchedUser = Users.findAll({ where: { username: user } });
+  const searchedUser = await Users.findOne({ where: { username: user } });
 
   res.json(searchedUser);
 });
