@@ -9,6 +9,8 @@ function Messages() {
     axios.get(`http://localhost:3001/users/${searchUser}`).then((response) => {
       console.log(response);
       setResults(response.data.username);
+      const searchResults = document.getElementById("search-results");
+      searchResults.style.display = "flex";
     });
   };
   const getUser = () => {
@@ -59,7 +61,7 @@ function Messages() {
           </div>
         </div>
       </div>
-      <div className="search-res-container">
+      <div className="search-res-container" id="search-results">
         <Image
           className="searchImg"
           cloudName="delktfw1a"
@@ -69,6 +71,17 @@ function Messages() {
         <button className="search-btn" id="results-btn">
           Message
         </button>
+      </div>
+      <div className="messaging-container">
+        <div className="inbox-container"></div>
+        <div className="messages">
+          <div className="messages-send">
+            <input type="text" className="message-input" />
+            <button className="send-msg-btn">
+              <i class="fas fa-paper-plane"></i>{" "}
+            </button>
+          </div>
+        </div>
       </div>
     </>
   );
