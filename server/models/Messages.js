@@ -8,7 +8,15 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    profile_picture: {
+    sender_profile_picture: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    receiver_profile_picture: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    sent: {
       type: DataTypes.STRING,
       allowNull: true,
     },

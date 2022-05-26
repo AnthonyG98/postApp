@@ -27,6 +27,17 @@ function Messages() {
     );
     resultsContainer.style.display = "block";
   };
+  const characters =
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  function generateString(length) {
+    let result = "";
+    const charactersLength = characters.length;
+    for (let i = 0; i < length; i++) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+
+    return setResultInbox(result);
+  }
   useEffect(() => {
     getUser();
   }, []);
@@ -68,7 +79,11 @@ function Messages() {
           publicId={profileImg}
         />{" "}
         <h1 className="login-head">{results}</h1>
-        <button className="search-btn" id="results-btn">
+        <button
+          className="search-btn"
+          id="results-btn"
+          onClick={generateString(8)}
+        >
           Message
         </button>
       </div>
