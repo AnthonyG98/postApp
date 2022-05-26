@@ -170,7 +170,7 @@ body {
 }
 .messages-send{
        position: absolute;
-       bottom: 0;
+       bottom: 3%;
        width: 100%;
        left: 0%;
 }
