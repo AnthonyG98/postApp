@@ -4,14 +4,19 @@ const bcrypt = require("bcrypt");
 const { Messages } = require("../models");
 
 router.post("/", async (req, res) => {
-  const { username, password, profile_picture, profile_cover } = req.body;
-  const createdUser = bcrypt.hash(password, 10).then((hash) => {
-    Messages.create({
-      username: username,
-      password: hash,
-      profile_picture: profile_picture,
-      profile_cover: profile_cover,
-    });
+  const {
+    message,
+    chatId,
+    sender_profile_picture,
+    receiver_profile_picture,
+    sent,
+  } = req.body;
+  const createdUser = Messages.create({
+    message: message,
+    chatId: chatId,
+    sender_profile_picture: sender_profile_picture,
+    receiver_profile_picture: receiver_profile_picture,
+    sent: true,
   });
   res.json(username);
 });

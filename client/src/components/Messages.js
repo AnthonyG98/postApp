@@ -3,12 +3,16 @@ import { Image } from "cloudinary-react";
 import axios from "axios";
 function Messages() {
   const [searchUser, setSearchUser] = useState();
+  const [chatId, setChatId] = useState();
   const [results, setResults] = useState();
   const [profileImg, setProfileImg] = useState();
+  const [message, setMessage] = useState();
+  const [senderProfileImage, setSenderProfileImage] = useState();
   const searchForUser = () => {
     axios.get(`http://localhost:3001/users/${searchUser}`).then((response) => {
       console.log(response);
       setResults(response.data.username);
+      setSenderProfileImage(response.data.profile_picture);
       const searchResults = document.getElementById("search-results");
       searchResults.style.display = "flex";
     });
@@ -35,9 +39,22 @@ function Messages() {
     for (let i = 0; i < length; i++) {
       result += characters.charAt(Math.floor(Math.random() * charactersLength));
     }
-
-    return setResultInbox(result);
+    setChatId(result);
   }
+  const sendMessage = () => {
+    const messageData = {
+      message: message,
+      chatId: chatId,
+      sender_profile_picture: profileImg,
+      receiver_profile_picture: senderProfileImage,
+      sent: true,
+    };
+    axios
+      .post("http://localhost:3001/message", messageData)
+      .then((response) => {
+        console.log(response);
+      });
+  };
   useEffect(() => {
     getUser();
   }, []);
@@ -82,7 +99,7 @@ function Messages() {
         <button
           className="search-btn"
           id="results-btn"
-          onClick={generateString(8)}
+          onClick={() => generateString(8)}
         >
           Message
         </button>
@@ -91,8 +108,14 @@ function Messages() {
         <div className="inbox-container"></div>
         <div className="messages">
           <div className="messages-send">
-            <input type="text" className="message-input" />
-            <button className="send-msg-btn">
+            <input
+              type="text"
+              className="message-input"
+              onChange={(e) => {
+                setMessage(e.target.value);
+              }}
+            />
+            <button className="send-msg-btn" onClick={sendMessage()}>
               <i class="fas fa-paper-plane"></i>{" "}
             </button>
           </div>
