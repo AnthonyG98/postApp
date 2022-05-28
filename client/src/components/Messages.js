@@ -9,18 +9,19 @@ function Messages() {
   const [userId, setUserId] = useState();
   const [message, setMessage] = useState();
   const [senderProfileImage, setSenderProfileImage] = useState();
+  const [searchUserId, setSearchUserId] = useState();
   const searchForUser = () => {
     axios.get(`http://localhost:3001/users/${searchUser}`).then((response) => {
       console.log(response);
       setResults(response.data.username);
       setSenderProfileImage(response.data.profile_picture);
+      setSearchUserId(response.data.id);
     });
   };
   const getUser = () => {
     axios
       .get(`http://localhost:3001/users/${localStorage.getItem("username")}`)
       .then((response) => {
-        console.log(response);
         setProfileImg(response.data.profile_picture);
         setUserId(response.data.id);
       });
@@ -38,7 +39,6 @@ function Messages() {
       result += characters.charAt(Math.floor(Math.random() * charactersLength));
     }
     setChatId(result);
-    console.log("hey");
     const resultsContainer = document.getElementById("search-results");
     resultsContainer.style.display = "none";
   }
@@ -48,13 +48,14 @@ function Messages() {
       chatId: chatId,
       sender_profile_picture: profileImg,
       receiver_profile_picture: senderProfileImage,
-      sent: true,
+      sender: searchUserId,
       UserId: userId,
     };
     axios
       .post("http://localhost:3001/message", messageData)
       .then((response) => {
         console.log(response);
+        console.log(searchUserId);
       });
   };
   useEffect(() => {

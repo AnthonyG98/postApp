@@ -9,15 +9,23 @@ router.post("/", async (req, res) => {
     chatId,
     sender_profile_picture,
     receiver_profile_picture,
-    sent,
+    sender,
+    UserId,
   } = req.body;
   const createdUser = Messages.create({
     message: message,
     chatId: chatId,
     sender_profile_picture: sender_profile_picture,
     receiver_profile_picture: receiver_profile_picture,
-    sent: sent,
+    sender: sender,
+    UserId: UserId,
   });
-  res.json("Message Sent.");
+  res.json(sender);
+});
+//for left side inbox find messages received
+router.get("/:id", async (req, res) => {
+  const myReceiverId = req.params.id;
+  const chat = await Messages.findAll({ where: { receiversId: myReceiverId } });
+  res.json(chat);
 });
 module.exports = router;
