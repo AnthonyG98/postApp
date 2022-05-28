@@ -6,6 +6,7 @@ function Messages() {
   const [chatId, setChatId] = useState();
   const [results, setResults] = useState();
   const [profileImg, setProfileImg] = useState();
+  const [userId, setUserId] = useState();
   const [message, setMessage] = useState();
   const [senderProfileImage, setSenderProfileImage] = useState();
   const searchForUser = () => {
@@ -13,8 +14,6 @@ function Messages() {
       console.log(response);
       setResults(response.data.username);
       setSenderProfileImage(response.data.profile_picture);
-      const searchResults = document.getElementById("search-results");
-      searchResults.style.display = "flex";
     });
   };
   const getUser = () => {
@@ -23,13 +22,12 @@ function Messages() {
       .then((response) => {
         console.log(response);
         setProfileImg(response.data.profile_picture);
+        setUserId(response.data.id);
       });
   };
   const openResultsContainer = () => {
-    const resultsContainer = document.querySelector(
-      ".search-results-container"
-    );
-    resultsContainer.style.display = "block";
+    const resultsContainer = document.getElementById("search-results");
+    resultsContainer.style.display = "flex";
   };
   const characters =
     "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -40,6 +38,9 @@ function Messages() {
       result += characters.charAt(Math.floor(Math.random() * charactersLength));
     }
     setChatId(result);
+    console.log("hey");
+    const resultsContainer = document.getElementById("search-results");
+    resultsContainer.style.display = "none";
   }
   const sendMessage = () => {
     const messageData = {
@@ -48,6 +49,7 @@ function Messages() {
       sender_profile_picture: profileImg,
       receiver_profile_picture: senderProfileImage,
       sent: true,
+      UserId: userId,
     };
     axios
       .post("http://localhost:3001/message", messageData)
@@ -76,12 +78,12 @@ function Messages() {
               onChange={(e) => {
                 setSearchUser(e.target.value);
               }}
-              onClick={openResultsContainer}
             />
             <button
               className="search-btn"
               onClick={() => {
                 searchForUser();
+                openResultsContainer();
               }}
             >
               Search
@@ -99,7 +101,9 @@ function Messages() {
         <button
           className="search-btn"
           id="results-btn"
-          onClick={() => generateString(8)}
+          onClick={() => {
+            generateString(8);
+          }}
         >
           Message
         </button>
@@ -115,7 +119,7 @@ function Messages() {
                 setMessage(e.target.value);
               }}
             />
-            <button className="send-msg-btn" onClick={sendMessage()}>
+            <button className="send-msg-btn" onClick={sendMessage}>
               <i class="fas fa-paper-plane"></i>{" "}
             </button>
           </div>

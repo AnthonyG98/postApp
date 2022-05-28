@@ -141,6 +141,7 @@ body {
        background-color: rgba(17, 17, 17, 0.534);
        top: 0%;
        flex-direction: column;
+       z-index: 99;
 }
 .searchImg {
        width: 300px;
@@ -154,6 +155,10 @@ body {
 #results-btn{
        margin-left: auto;
        margin-right: auto;
+       z-index: 9999 !important;
+}
+#results-btn:hover {
+       cursor: pointer;
 }
 .messaging-container {
        width: 100%;

@@ -16,8 +16,8 @@ router.post("/", async (req, res) => {
     chatId: chatId,
     sender_profile_picture: sender_profile_picture,
     receiver_profile_picture: receiver_profile_picture,
-    sent: true,
+    sent: sent,
   });
-  res.json(username);
+  res.json("Message Sent.");
 });
 module.exports = router;

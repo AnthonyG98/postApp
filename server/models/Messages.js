@@ -6,7 +6,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     chatId: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
     },
     sender_profile_picture: {
       type: DataTypes.STRING,
