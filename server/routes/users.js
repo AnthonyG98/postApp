@@ -16,20 +16,24 @@ router.post("/", async (req, res) => {
   res.json(username);
 });
 //replace profile pic
-router.put("/profile/:pic", async (req, res) => {
-  const profilePicture = req.params.pic;
-  const image = await Users.findOne({
-    where: { profile_picture: profilePicture },
+router.put("/profile/:id", async (req, res) => {
+  const user = req.params.id;
+  const picture = await Users.findOne({
+    where: { id: user },
   });
 
   const { profile_picture } = req.body;
 
-  image.profile_picture = profile_picture;
+  picture.profile_picture = profile_picture;
 
-  await image.save();
-  res.json("updated");
+  // const savePic = async () => {
+  //        await picture.save();
+  // };
+  picture.save();
+
+  // savePic();
+  res.json("update");
 });
-
 router.post("/login", async (req, res) => {
   const { username, password } = req.body;
   const user = await Users.findOne({ where: { username: username } });

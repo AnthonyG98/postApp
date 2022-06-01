@@ -126,11 +126,21 @@ body {
        border: 1px solid #fff;
        transition: 0.3s ease;
 }
+.change-profileImg {
+       width: 33%;
+       height: auto;
+       display: flex;
+       align-items: center;
+       justify-content: space-between;
+}
 .profileImg {
        width: 75px;
-       height: 75px;
+       height: 65px !important;
        object-fit: cover;
        border-radius: 50%;
+}
+.profileImg:hover {
+       cursor: pointer;
 }
 .search-res-container {
        display: none;

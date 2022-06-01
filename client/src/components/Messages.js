@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Image } from "cloudinary-react";
 import axios from "axios";
+import { MessagesProps } from "./MessagesProps";
 function Messages() {
   const [searchUser, setSearchUser] = useState();
   const [chatId, setChatId] = useState();
@@ -8,6 +9,7 @@ function Messages() {
   const [profileImg, setProfileImg] = useState();
   const [userId, setUserId] = useState();
   const [message, setMessage] = useState();
+  const [image, setImage] = useState();
   const [senderProfileImage, setSenderProfileImage] = useState();
   const [searchUserId, setSearchUserId] = useState();
   const searchForUser = () => {
@@ -22,7 +24,11 @@ function Messages() {
     axios
       .get(`http://localhost:3001/message/inbox/${thisUserId}`)
       .then((response) => {
-        console.log(response);
+        //  setInbox(response.data.map(el =>{
+        //         return (
+        //                <MessagesProps profileImg={el}/>
+        //         )
+        //  })
       });
   };
   const getUser = () => {
@@ -66,6 +72,42 @@ function Messages() {
         console.log(searchUserId);
       });
   };
+  const changeProfileImg = () => {
+    const imgFormData = new FormData();
+    imgFormData.append("file", image);
+    imgFormData.append("upload_preset", "fy5ahm9g");
+    axios
+      .post(
+        `https://api.cloudinary.com/v1_1/delktfw1a/image/upload`,
+        imgFormData
+      )
+      .then((response) => {
+        const fileName = response.data.public_id;
+        const imageData = {
+          profile_picture: fileName,
+        };
+
+        axios
+          .put(`http://localhost:3001/users/profile/${userId}`, imageData)
+          .then((response) => {
+            //  const changePostPicure = () => {
+            //  };
+            //  changePostPicure();
+            const postImageData = {
+              userId: userId,
+              profile_picture: fileName,
+            };
+            axios
+              .put(
+                `http://localhost:3001/post/profile/${userId}`,
+                postImageData
+              )
+              .then((response) => {
+                console.log(response);
+              });
+          });
+      });
+  };
   useEffect(() => {
     getUser();
   }, []);
@@ -74,11 +116,27 @@ function Messages() {
     <>
       <div className="message-container">
         <div className="nav-container">
-          <Image
-            className="profileImg"
-            cloudName="delktfw1a"
-            publicId={profileImg}
-          />{" "}
+          <div className="change-profileImg">
+            <Image
+              className="profileImg"
+              cloudName="delktfw1a"
+              publicId={profileImg}
+            />{" "}
+            <input
+              type="file"
+              onChange={(e) => {
+                setImage(e.target.files[0]);
+              }}
+            />
+            <button
+              onClick={() => {
+                changeProfileImg();
+              }}
+            >
+              Change
+            </button>
+          </div>
+
           <div className="search-container">
             <input
               className="search-input"
@@ -104,7 +162,7 @@ function Messages() {
         <Image
           className="searchImg"
           cloudName="delktfw1a"
-          publicId={profileImg}
+          publicId={senderProfileImage}
         />{" "}
         <h1 className="login-head">{results}</h1>
         <button

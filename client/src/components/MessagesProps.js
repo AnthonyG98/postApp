@@ -5,7 +5,7 @@ function MessagesProps(props) {
     <div className="msg-props-container">
       <div className="msg-props-img">
         <Image
-          className="searchImg"
+          className="inboxImg"
           cloudName="delktfw1a"
           publicId={props.profileImg}
         />{" "}
