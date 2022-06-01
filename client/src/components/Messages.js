@@ -18,12 +18,20 @@ function Messages() {
       setSearchUserId(response.data.id);
     });
   };
+  const getLeftInbox = (thisUserId) => {
+    axios
+      .get(`http://localhost:3001/message/inbox/${thisUserId}`)
+      .then((response) => {
+        console.log(response);
+      });
+  };
   const getUser = () => {
     axios
       .get(`http://localhost:3001/users/${localStorage.getItem("username")}`)
       .then((response) => {
         setProfileImg(response.data.profile_picture);
         setUserId(response.data.id);
+        getLeftInbox(response.data.id);
       });
   };
   const openResultsContainer = () => {

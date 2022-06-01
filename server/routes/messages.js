@@ -23,9 +23,9 @@ router.post("/", async (req, res) => {
   res.json(sender);
 });
 //for left side inbox find messages received
-router.get("/:id", async (req, res) => {
+router.get("/inbox/:id", async (req, res) => {
   const myReceiverId = req.params.id;
-  const chat = await Messages.findAll({ where: { receiversId: myReceiverId } });
+  const chat = await Messages.findAll({ where: { sender: myReceiverId } });
   res.json(chat);
 });
 module.exports = router;
