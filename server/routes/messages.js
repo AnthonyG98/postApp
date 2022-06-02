@@ -28,4 +28,10 @@ router.get("/inbox/:id", async (req, res) => {
   const chat = await Messages.findAll({ where: { sender: myReceiverId } });
   res.json(chat);
 });
+//Receive my own msg sent
+router.get("/more/:id", async (req, res) => {
+  const myReceiverId = req.params.id;
+  const chat = await Messages.findAll({ where: { UserId: myReceiverId } });
+  res.json(chat);
+});
 module.exports = router;

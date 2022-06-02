@@ -33,6 +33,18 @@ function Messages() {
         );
       });
   };
+  const getMyInbox = (thisUserId) => {
+    axios
+      .get(`http://localhost:3001/message/more/${thisUserId}`)
+      .then((response) => {
+        console.log(response);
+        setInbox(
+          response.data.map((el) => {
+            return <MessagesProps profileImg={el.receiver_profile_picture} />;
+          })
+        );
+      });
+  };
   const getUser = () => {
     axios
       .get(`http://localhost:3001/users/${localStorage.getItem("username")}`)
@@ -40,8 +52,11 @@ function Messages() {
         setProfileImg(response.data.profile_picture);
         setUserId(response.data.id);
         getLeftInbox(response.data.id);
+        getMyInbox(response.data.id);
+        //When click on user inbox pic, set UserId and Sender to null
       });
   };
+
   const openResultsContainer = () => {
     const resultsContainer = document.getElementById("search-results");
     resultsContainer.style.display = "flex";
