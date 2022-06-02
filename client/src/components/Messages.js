@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Image } from "cloudinary-react";
 import axios from "axios";
-import { MessagesProps } from "./MessagesProps";
+import MessagesProps from "./MessagesProps";
 function Messages() {
   const [searchUser, setSearchUser] = useState();
   const [chatId, setChatId] = useState();
@@ -12,6 +12,7 @@ function Messages() {
   const [image, setImage] = useState();
   const [senderProfileImage, setSenderProfileImage] = useState();
   const [searchUserId, setSearchUserId] = useState();
+  const [inbox, setInbox] = useState();
   const searchForUser = () => {
     axios.get(`http://localhost:3001/users/${searchUser}`).then((response) => {
       console.log(response);
@@ -24,11 +25,12 @@ function Messages() {
     axios
       .get(`http://localhost:3001/message/inbox/${thisUserId}`)
       .then((response) => {
-        //  setInbox(response.data.map(el =>{
-        //         return (
-        //                <MessagesProps profileImg={el}/>
-        //         )
-        //  })
+        console.log(response);
+        setInbox(
+          response.data.map((el) => {
+            return <MessagesProps profileImg={el.sender_profile_picture} />;
+          })
+        );
       });
   };
   const getUser = () => {
@@ -176,7 +178,7 @@ function Messages() {
         </button>
       </div>
       <div className="messaging-container">
-        <div className="inbox-container"></div>
+        <div className="inbox-container">{inbox}</div>
         <div className="messages">
           <div className="messages-send">
             <input
