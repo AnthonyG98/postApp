@@ -34,4 +34,9 @@ router.get("/more/:id", async (req, res) => {
   const chat = await Messages.findAll({ where: { UserId: myReceiverId } });
   res.json(chat);
 });
+router.get("/chat/:id", async (req, res) => {
+  const chatId = req.params.id;
+  const chat = await Messages.findAll({ where: { chatId: chatId } });
+  res.json(chat);
+});
 module.exports = router;

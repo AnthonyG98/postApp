@@ -28,7 +28,12 @@ function Messages() {
         console.log(response);
         setInbox(
           response.data.map((el) => {
-            return <MessagesProps profileImg={el.sender_profile_picture} />;
+            return (
+              <MessagesProps
+                profileImg={el.sender_profile_picture}
+                chatId={el.chatId}
+              />
+            );
           })
         );
       });
@@ -40,7 +45,18 @@ function Messages() {
         console.log(response);
         setInbox(
           response.data.map((el) => {
-            return <MessagesProps profileImg={el.receiver_profile_picture} />;
+            return (
+              <MessagesProps
+                profileImg={el.receiver_profile_picture}
+                getChat={() => {
+                  axios
+                    .get(`http://localhost:3001/message/chat/${el.chatId}`)
+                    .then((response) => {
+                      console.log(response);
+                    });
+                }}
+              />
+            );
           })
         );
       });
