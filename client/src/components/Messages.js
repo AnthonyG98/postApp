@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Image } from "cloudinary-react";
 import axios from "axios";
 import MessagesProps from "./MessagesProps";
+import ChatProps from "./ChatProps";
 function Messages() {
   const [searchUser, setSearchUser] = useState();
   const [chatId, setChatId] = useState();
@@ -13,6 +14,9 @@ function Messages() {
   const [senderProfileImage, setSenderProfileImage] = useState();
   const [searchUserId, setSearchUserId] = useState();
   const [inbox, setInbox] = useState();
+  const [receivedInbox, setReceivedInbox] = useState();
+  const [chat, setChat] = useState();
+
   const searchForUser = () => {
     axios.get(`http://localhost:3001/users/${searchUser}`).then((response) => {
       console.log(response);
@@ -26,12 +30,33 @@ function Messages() {
       .get(`http://localhost:3001/message/inbox/${thisUserId}`)
       .then((response) => {
         console.log(response);
-        setInbox(
+        setReceivedInbox(
           response.data.map((el) => {
             return (
               <MessagesProps
                 profileImg={el.sender_profile_picture}
                 chatId={el.chatId}
+                getChat={() => {
+                  axios
+                    .get(`http://localhost:3001/message/chat/${el.chatId}`)
+                    .then((response) => {
+                      console.log(response);
+                      console.log("hey");
+                      setChat(
+                        response.data.map((el) => {
+                          return (
+                            <ChatProps
+                              profileImg={
+                                userId === el.UserId
+                                  ? el.receiver_profile_picture
+                                  : el.sender_profile_picture
+                              }
+                            />
+                          );
+                        })
+                      );
+                    });
+                }}
               />
             );
           })
@@ -53,6 +78,21 @@ function Messages() {
                     .get(`http://localhost:3001/message/chat/${el.chatId}`)
                     .then((response) => {
                       console.log(response);
+                      console.log("hey");
+                      setChat(
+                        response.data.map((el) => {
+                          return (
+                            <ChatProps
+                              profileImg={
+                                userId === el.UserId
+                                  ? el.receiver_profile_picture
+                                  : el.sender_profile_picture
+                              }
+                              message={el.message}
+                            />
+                          );
+                        })
+                      );
                     });
                 }}
               />
@@ -209,8 +249,12 @@ function Messages() {
         </button>
       </div>
       <div className="messaging-container">
-        <div className="inbox-container">{inbox}</div>
+        <div className="inbox-container">
+          {inbox}
+          {receivedInbox}
+        </div>
         <div className="messages">
+          {chat}
           <div className="messages-send">
             <input
               type="text"
