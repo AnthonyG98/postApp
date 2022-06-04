@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcrypt");
 const { Messages } = require("../models");
+const { Op } = require("sequelize");
 
 router.post("/", async (req, res) => {
   const {
@@ -31,7 +32,14 @@ router.get("/inbox/:id", async (req, res) => {
 //Receive my own msg sent
 router.get("/more/:id", async (req, res) => {
   const myReceiverId = req.params.id;
-  const chat = await Messages.findAll({ where: { UserId: myReceiverId } });
+  const chat = await Messages.findAll({
+    where: {
+      [Op.or]: [{ UserId: myReceiverId }, { sender: myReceiverId }],
+    },
+  });
+  const otherChat = await Messages.findAll({
+    where: { sender: myReceiverId },
+  });
   res.json(chat);
 });
 router.get("/chat/:id", async (req, res) => {

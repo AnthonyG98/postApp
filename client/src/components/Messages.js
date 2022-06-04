@@ -25,44 +25,44 @@ function Messages() {
       setSearchUserId(response.data.id);
     });
   };
-  const getLeftInbox = (thisUserId) => {
-    axios
-      .get(`http://localhost:3001/message/inbox/${thisUserId}`)
-      .then((response) => {
-        console.log(response);
-        setReceivedInbox(
-          response.data.map((el) => {
-            return (
-              <MessagesProps
-                profileImg={el.sender_profile_picture}
-                chatId={el.chatId}
-                getChat={() => {
-                  axios
-                    .get(`http://localhost:3001/message/chat/${el.chatId}`)
-                    .then((response) => {
-                      console.log(response);
-                      console.log("hey");
-                      setChat(
-                        response.data.map((el) => {
-                          return (
-                            <ChatProps
-                              profileImg={
-                                userId === el.UserId
-                                  ? el.receiver_profile_picture
-                                  : el.sender_profile_picture
-                              }
-                            />
-                          );
-                        })
-                      );
-                    });
-                }}
-              />
-            );
-          })
-        );
-      });
-  };
+  //   const getLeftInbox = (thisUserId) => {
+  //     axios
+  //       .get(`http://localhost:3001/message/inbox/${thisUserId}`)
+  //       .then((response) => {
+  //         console.log(response);
+  //         setReceivedInbox(
+  //           response.data.map((el) => {
+  //             return (
+  //               <MessagesProps
+  //                 profileImg={el.sender_profile_picture}
+  //                 chatId={el.chatId}
+  //                 getChat={() => {
+  //                   axios
+  //                     .get(`http://localhost:3001/message/chat/${el.chatId}`)
+  //                     .then((response) => {
+  //                       console.log(response);
+  //                       console.log("hey");
+  //                       setChat(
+  //                         response.data.map((el) => {
+  //                           return (
+  //                             <ChatProps
+  //                               profileImg={
+  //                                 userId === el.UserId
+  //                                   ? el.receiver_profile_picture
+  //                                   : el.sender_profile_picture
+  //                               }
+  //                             />
+  //                           );
+  //                         })
+  //                       );
+  //                     });
+  //                 }}
+  //               />
+  //             );
+  //           })
+  //         );
+  //       });
+  //   };
   const getMyInbox = (thisUserId) => {
     axios
       .get(`http://localhost:3001/message/more/${thisUserId}`)
@@ -72,13 +72,18 @@ function Messages() {
           response.data.map((el) => {
             return (
               <MessagesProps
-                profileImg={el.receiver_profile_picture}
+                profileImg={
+                  userId === el.UserId
+                    ? el.receiver_profile_picture
+                    : el.sender_profile_picture
+                }
                 getChat={() => {
                   axios
                     .get(`http://localhost:3001/message/chat/${el.chatId}`)
                     .then((response) => {
-                      console.log(response);
-                      console.log("hey");
+                      setSearchUser(null);
+                      setUserId(null);
+                      setChatId(el.chatId);
                       setChat(
                         response.data.map((el) => {
                           return (
@@ -107,7 +112,7 @@ function Messages() {
       .then((response) => {
         setProfileImg(response.data.profile_picture);
         setUserId(response.data.id);
-        getLeftInbox(response.data.id);
+        //  getLeftInbox(response.data.id);
         getMyInbox(response.data.id);
         //When click on user inbox pic, set UserId and Sender to null
       });
@@ -143,6 +148,7 @@ function Messages() {
       .then((response) => {
         console.log(response);
         console.log(searchUserId);
+        getMyInbox(userId);
       });
   };
   const changeProfileImg = () => {
