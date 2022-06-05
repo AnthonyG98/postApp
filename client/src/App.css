@@ -229,3 +229,28 @@ body {
        align-items: baseline;
        color: #fff;
 }
+@media only screen and (max-width: 600px) {
+       .login input{
+              width: 100%;
+       }
+       .login button {
+              width: 100%;
+       }
+       .search-input {
+              width: 50%;
+       }
+       .inbox-container {
+              width: fit-content;
+       }
+       .nav-container{
+              width: 100%;
+              margin-left: auto;
+              margin-right: auto;
+              display: flex;
+              align-items: center;
+              justify-content: space-around;
+       }
+       .search-btn {
+              font-size: 15px;
+       }
+     }
