@@ -21,7 +21,7 @@ router.post("/", async (req, res) => {
     sender: sender,
     UserId: UserId,
   });
-  res.json(sender);
+  res.json(UserId);
 });
 //for left side inbox find messages received
 router.get("/inbox/:id", async (req, res) => {

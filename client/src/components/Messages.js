@@ -25,44 +25,6 @@ function Messages() {
       setSearchUserId(response.data.id);
     });
   };
-  //   const getLeftInbox = (thisUserId) => {
-  //     axios
-  //       .get(`http://localhost:3001/message/inbox/${thisUserId}`)
-  //       .then((response) => {
-  //         console.log(response);
-  //         setReceivedInbox(
-  //           response.data.map((el) => {
-  //             return (
-  //               <MessagesProps
-  //                 profileImg={el.sender_profile_picture}
-  //                 chatId={el.chatId}
-  //                 getChat={() => {
-  //                   axios
-  //                     .get(`http://localhost:3001/message/chat/${el.chatId}`)
-  //                     .then((response) => {
-  //                       console.log(response);
-  //                       console.log("hey");
-  //                       setChat(
-  //                         response.data.map((el) => {
-  //                           return (
-  //                             <ChatProps
-  //                               profileImg={
-  //                                 userId === el.UserId
-  //                                   ? el.receiver_profile_picture
-  //                                   : el.sender_profile_picture
-  //                               }
-  //                             />
-  //                           );
-  //                         })
-  //                       );
-  //                     });
-  //                 }}
-  //               />
-  //             );
-  //           })
-  //         );
-  //       });
-  //   };
   const getMyInbox = (thisUserId) => {
     axios
       .get(`http://localhost:3001/message/more/${thisUserId}`)
@@ -73,7 +35,7 @@ function Messages() {
             return (
               <MessagesProps
                 profileImg={
-                  userId === el.UserId
+                  thisUserId === el.UserId
                     ? el.receiver_profile_picture
                     : el.sender_profile_picture
                 }
@@ -89,7 +51,7 @@ function Messages() {
                           return (
                             <ChatProps
                               profileImg={
-                                userId === el.UserId
+                                el.chatId === el.UserId
                                   ? el.receiver_profile_picture
                                   : el.sender_profile_picture
                               }
@@ -148,7 +110,28 @@ function Messages() {
       .then((response) => {
         console.log(response);
         console.log(searchUserId);
-        getMyInbox(userId);
+        console.log(profileImg);
+        axios
+          .get(`http://localhost:3001/message/chat/${chatId}`)
+          .then((response) => {
+            setSearchUser(null);
+            setUserId(null);
+            setChatId(chatId);
+            setChat(
+              response.data.map((el) => {
+                return (
+                  <ChatProps
+                    profileImg={
+                      el.chatId === el.UserId
+                        ? el.receiver_profile_picture
+                        : el.sender_profile_picture
+                    }
+                    message={el.message}
+                  />
+                );
+              })
+            );
+          });
       });
   };
   const changeProfileImg = () => {
